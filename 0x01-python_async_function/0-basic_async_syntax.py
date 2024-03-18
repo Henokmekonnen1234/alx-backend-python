@@ -7,7 +7,8 @@ In this module we will implement asyncio concepts
 import asyncio
 import random
 
-async def wait_random(max_delay=10) -> float:
+
+async def wait_random(max_delay: int = 10) -> float:
     """this will generate random number between o and max_delay and
         await using the generated number and returned it
     Attribs:
