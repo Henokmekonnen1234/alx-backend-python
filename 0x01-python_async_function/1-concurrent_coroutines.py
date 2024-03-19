@@ -21,7 +21,10 @@ async def wait_n(n: int, max_delay: int) -> List[float]:
     Returns:
         list[float]: returns the values of list of delays
     """
-    wait_times = await asyncio.gather(
-        *tuple(map(lambda _: wait_random(max_delay), range(n)))
-    )
-    return sorted(wait_times)
+    coroutines = [wait_random(max_delay) for _ in range(n)]
+    results = []
+    for future in asyncio.as_completed(coroutines):
+        result = await future
+        results.append(result)
+
+    return results
