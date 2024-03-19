@@ -7,6 +7,9 @@ In this module we will see about asyncio
 import asyncio
 
 
+wait_random = __import__('0-basic_async_syntax').wait_random
+
+
 async def wait_n(n: int, max_delay: int) -> list[float]:
     """ In this module we will return the list of delay time
 
@@ -17,10 +20,7 @@ async def wait_n(n: int, max_delay: int) -> list[float]:
     Returns:
         list[float]: returns the values of list of delays
     """
-    wait_r = __import__("0-basic_async_syntax").wait_random
-    value: list = [wait_r(max_delay) for _ in range(n)]
-    result: list[float] = []
-    for returned in asyncio.as_completed(value):
-        resp = await returned
-        result.append(resp)
-    return result
+    wait_times = await asyncio.gather(
+        *tuple(map(lambda _: wait_random(max_delay), range(n)))
+    )
+    return sorted(wait_times)
