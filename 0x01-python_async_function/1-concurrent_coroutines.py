@@ -18,8 +18,8 @@ async def wait_n(n: int, max_delay: int) -> list[float]:
         list[float]: returns the values of list of delays
     """
     wait_r = __import__("0-basic_async_syntax").wait_random
-    value = [wait_r(max_delay) for _ in range(n)]
-    result = []
+    value: list = [wait_r(max_delay) for _ in range(n)]
+    result: list[float] = []
     for returned in asyncio.as_completed(value):
         resp = await returned
         result.append(resp)
