@@ -3,6 +3,7 @@
 Module 1-async_comprehension.py
 """
 
+import asyncio
 from typing import List
 
 
